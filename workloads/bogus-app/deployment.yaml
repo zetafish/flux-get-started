@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bogus-app
+  namespace: demo
+  labels:
+    app: bogus-app
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.init: regex:^3.10.*
+    fluxcd.io/tag.bogus-appd: semver:~2.1
+spec:
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: bogus-app
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+      labels:
+        app: bogus-app
+    spec:
+      containers:
+      - name: bogus-app
+        image: registry.gitlab.com/greenhousegroup/lemonpi/playground/bogus-app:v0.1.1-bad-3-g1d9aa5a
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 128Mi
+          requests:
+            cpu: 10m
+            memory: 64Mi
