@@ -25,6 +25,8 @@ spec:
       labels:
         app: bogus-app
     spec:
+      imagePullSecret:
+      - name: bogus-app-fluxcred
       containers:
       - name: bogus-app
         image: registry.gitlab.com/greenhousegroup/lemonpi/playground/bogus-app:v0.1.1-bad-3-g1d9aa5a
