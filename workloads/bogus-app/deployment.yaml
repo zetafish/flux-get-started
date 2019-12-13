@@ -25,7 +25,7 @@ spec:
       labels:
         app: bogus-app
     spec:
-      imagePullSecret:
+      imagePullSecrets:
       - name: bogus-app-fluxcred
       containers:
       - name: bogus-app
