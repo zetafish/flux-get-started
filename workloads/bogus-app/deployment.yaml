@@ -7,7 +7,6 @@ metadata:
   labels:
     app: bogus-app
   annotations:
-    fluxcd.io/automated: "true"
     fluxcd.io/tag.init: regex:^3.10.*
     fluxcd.io/tag.bogus-appd: semver:~2.1
 spec:
