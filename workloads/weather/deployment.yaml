@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather
+  namespace: lemonpi
+  labels:
+    app.kubernetes.io/component: weather
+    app.kubernetes.io/part-of: lemonpi
+spec:
+  selector:
+    matchLabels:
+      app: weather
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: weather
+    spec:
+      imagePullSecrets:
+        - name: lemonpi-weather-regcred
+      containers:
+        - name: app
+          image: registry.gitlab.com/greenhousegroup/lemonpi/lemonpi-weather:v0.12.0-2-g1118820
+          livenessProbe:
+            httpGet:
+              path: /version
+              port: 5000
+            periodSeconds: 60
+            initialDelaySeconds: 30
+          volumeMounts:
+            - name: config
+              mountPath: /app/config/config.edn
+              subPath: config.edn
+              readOnly: true
+            - name: secret
+              mountPath: /app/config/secrets.edn
+              subPath: secrets.edn
+              readOnly: true
+          resources:
+            limits:
+              memory: "600Mi"
+            requests:
+              cpu: "50m"
+              memory: "400Mi"
+      volumes:
+        - name: config
+          configMap:
+            name: weather
+        - name: secret
+          secret:
+            secretName: weather
