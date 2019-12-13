@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bogus-app
+  namespace: lemonpi
+  labels:
+    app: podinfo
+spec:
+  type: ClusterIP
+  selector:
+    app: bogus-app
+  ports:
+  - name: http
+    port: 5000
+    protocol: TCP
+    targetPort: http
