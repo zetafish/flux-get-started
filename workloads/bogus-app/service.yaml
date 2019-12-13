@@ -10,6 +10,6 @@ spec:
   selector:
     app: bogus-app
   ports:
-  - port: 5000
+  - name: http
+    port: 5000
     protocol: TCP
-    targetPort: http
