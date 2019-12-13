@@ -29,7 +29,7 @@ spec:
       - name: bogus-app-regcred
       containers:
       - name: bogus-app
-        image: registry.gitlab.com/greenhousegroup/lemonpi/playground/bogus-app:v2.0.0-1-g7cd04ed
+        image: registry.gitlab.com/greenhousegroup/lemonpi/playground/bogus-app:v2.0.0-4-ga3cbd0c
         imagePullPolicy: IfNotPresent
         resources:
           limits:
